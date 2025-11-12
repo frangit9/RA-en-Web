@@ -51,18 +51,43 @@ anchor.onTargetLost = () => {
 const loader = new GLTFLoader();
 
 loader.load(
-    './baller_roblox.glb', // Ruta de tu modelo 3D
-    (gltf) => {
-        const model = gltf.scene;
-        // Ajuste de escala (haz el modelo más pequeño para encajar en el marcador)
-        model.scale.set(0.2, 0.2, 0.2); 
-        // Ajuste de posición (lo eleva ligeramente para que no se hunda en el marcador)
-        model.position.y = 0.1; 
-        // Agrega el modelo al anclaje
-        anchor.group.add(model);
-    },
-    // Función que se ejecuta en caso de error
-    (error) => { console.error('Error al cargar el modelo GLB:', error); }
+  './baller_roblox.glb', // Ruta de nuestro modelo 3D
+  (gltf) => {
+    const model = gltf.scene;
+
+    // Esta función se complicó un poco porque hay que calcular el centro del modelo,
+    // de modo que al rotar se rote desde el centro
+
+    // 1. Calcula la "caja" que envuelve a tu modelo
+    const box = new THREE.Box3().setFromObject(model);
+
+    // 2. Obtiene el centro geométrico de esa caja
+    const center = new THREE.Vector3();
+    box.getCenter(center);
+
+    // 3. Mueve la geometría del modelo para que su centro
+    //    quede en el origen [0,0,0].
+    //    Lo movemos en la dirección opuesta a donde está su centro.
+    model.position.sub(center);
+
+    // 1. Crea un contenedor (wrapper)
+    const wrapper = new THREE.Group();
+
+    // 2. Aplica TUS transformaciones al CONTENEDOR
+    wrapper.scale.set(0.4, 0.4, 0.4);
+    wrapper.position.y = 0.1;
+    wrapper.rotation.y = Math.PI; // ¡Ahora sí debería funcionar!
+
+    // 3. Añade el modelo (ya centrado) dentro del contenedor
+    wrapper.add(model);
+
+    // 4. Agrega el CONTENEDOR al anclaje
+    anchor.group.add(wrapper);
+  },
+  // Función que se ejecuta en caso de error
+  (error) => {
+    console.error('Error al cargar el modelo GLB:', error);
+  }
 );
 
 
