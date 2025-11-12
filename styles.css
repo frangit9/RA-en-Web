@@ -1,51 +1,69 @@
 body {
-        margin: 0;
-        font-family: 'Poppins', sans-serif;
-        background-color: #f7f8fa;
-      }
+    margin: 0;
+    overflow: hidden; 
+    background-color: #000;
+    /* Tipografía*/
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
 
-      #container {
-        width: 100vw;
-        height: 100vh;
-        position: relative;
-        overflow: hidden;
-        border-radius: 20px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-      }
+/* Contenedor principal de la cámara y la escena AR */
+#container {
+    width: 100vw;
+    height: 100vh;
+}
 
-      #control {
-        position: fixed;
-        top: 80%;
-        left: 50%;
-        z-index: 2;
-        display: flex;
-        gap: 10px;
-        background: rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(10px);
-        padding: 15px 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      }
+/* Estilos para el contenedor de los botones (Posición Central Inferior) */
+#control {
+    position: fixed;
+    bottom: 30px; /* Separación de la parte inferior */
+    left: 50%;
+    transform: translateX(-50%); /* Centrado horizontal */
+    z-index: 100; /* Asegura que estén sobre la vista de la cámara */
+    display: flex;
+    gap: 15px;
+}
 
-      button {
-        background: linear-gradient(135deg, #00e7a1, #006c3296);
-        border: none;
-        color: white;
-        padding: 15px 50px;
-        border-radius: 12px;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.35s ease;
-        box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
-      }
+#control button {
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s;
+}
 
-      button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 14px rgba(0, 0, 0, 0.2);
-      }
+#control button:hover {
+    background-color: #45a049;
+}
 
-      button:active {
-        transform: translateY(0);
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-      }
+
+/* Estilos para el Mensaje de Guía (Posición Central Superior) */
+#guideMessage {
+    position: fixed;
+    top: 10%; 
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centrado completo */
+    z-index: 10; 
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente */
+    color: white; /* Color del texto blanco */
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: underline; /* Texto subrayado */
+    border-radius: 5px;
+    pointer-events: none; /* Permite que los elementos detrás sean clicables */
+    opacity: 1; /* Visible por defecto */
+    /* Transición suave para el efecto de desvanecimiento */
+    transition: opacity 0.5s ease-in-out, visibility 0.5s;
+}
+
+/* Clase para ocultar el mensaje (usada por app.js) */
+.hidden {
+    opacity: 0;
+    visibility: hidden; /* Oculta el elemento después de la transición */
+}
