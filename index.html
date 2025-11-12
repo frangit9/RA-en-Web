@@ -1,35 +1,41 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR MindAR - Baller</title>
-    
-    <link rel="stylesheet" href="styles.css"> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR MindAR - Baller</title>
+  
+  <!-- Estilos -->
+  <link rel="stylesheet" href="styles.css">
 
-    <script type="importmap">
-    {
-        "imports": {
-            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
-            "mindar-image-three":"https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-three.prod.js"
-        }
+  <!-- Importmap: define rutas para Three.js y MindAR -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+      "mindar-image-three": "https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-three.prod.js"
     }
-    </script>
-    
-    <script type="module" src="js/app.js"></script> 
+  }
+  </script>
+
+  <!-- Script principal -->
+  <script type="module" src="js/app.js"></script>
 </head>
+
 <body>
-    <div id="guideMessage">
-        APUNTE LA CÁMARA HACIA EL MARCADOR
-    </div>
+  <!-- Mensaje de guía -->
+  <div id="guideMessage">
+    APUNTE LA CÁMARA HACIA EL MARCADOR
+  </div>
 
-    <div id="container">
-    </div>
+  <!-- Contenedor de la experiencia AR -->
+  <div id="container"></div>
 
-    <div id="control">
-        <button id="startButton">INICIAR AR</button>
-        <button id="stopButton">DETENER AR</button>
-    </div>
+  <!-- Controles -->
+  <div id="control">
+    <button id="startButton">INICIAR AR</button>
+    <button id="stopButton">DETENER AR</button>
+  </div>
 </body>
 </html>
