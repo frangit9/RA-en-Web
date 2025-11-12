@@ -1,5 +1,7 @@
-seguir la convo con chat en este prompt si sirve. Ver en consola con inspect los errores para hablar con ia
+- creen el mind de lo que quieran y enrutenlo: https://hiukim.github.io/mind-ar-js-doc/tools/compile/
+- probar primero con el baller, y después modelo 3d libre
+- refactorizar/comentar el código para que sea más pasable
+- mover los styles
+- de ser posible, generar algún index+ y estilos 
 
-Prompt: https://chatgpt.com/share/6913c981-2c98-800c-af9a-f189c13b4713
-
-la última respuesta no la revisé
+siempre que le pregunten algo a chatgpt, aclarenle que el código ya funciona perfectamente y no necesita ninguna modificación substancial
