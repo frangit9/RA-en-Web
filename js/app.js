@@ -32,45 +32,22 @@ anchor.onTargetLost = () => guideMessage.classList.remove('hidden');
 // -------------------- CARGA DEL MODELO --------------------
 const loader = new GLTFLoader();
 loader.load(
-    './assets/cancercino.glb', // Modelo
+    './baller_roblox.glb', // Ruta de tu modelo 3D
     (gltf) => {
         const model = gltf.scene;
-
-        // Ajuste de escala
-        model.scale.set(0.5, 0.5, 0.5);
-
-        // Posición más baja sobre el marcador
-        model.position.set(0, -0.05, 0); // bajamos un poco en Y
-
-        // Rotación mirando al frente
-        model.rotation.set(0, Math.PI, 0); // gira 180° sobre Y si está al revés
-
-        // Material básico por si faltan texturas
-        model.traverse((child) => {
-            if (child.isMesh) {
-                child.material = child.material || new THREE.MeshStandardMaterial({ color: 0xffffff });
-            }
-        });
-
+        // Ajuste de escala (haz el modelo más pequeño para encajar en el marcador)
+        model.scale.set(0.2, 0.2, 0.2); 
+        // Ajuste de posición (lo eleva ligeramente para que no se hunda en el marcador)
+        model.position.y = 0.1; 
+        // Agrega el modelo al anclaje
         anchor.group.add(model);
-        console.log("Modelo cargado correctamente:", model);
     },
-    (xhr) => {
-        if(xhr.total) {
-            console.log(`Cargando modelo: ${(xhr.loaded / xhr.total * 100).toFixed(2)}%`);
-        }
-    },
-    (error) => console.error("Error al cargar el modelo GLB:", error)
+    // Función que se ejecuta en caso de error
+    (error) => { console.error('Error al cargar el modelo GLB:', error); }
 );
 
-// -------------------- OBJETO DE PRUEBA --------------------
-const testCube = new THREE.Mesh(
-    new THREE.BoxGeometry(0.1,0.1,0.1),
-    new THREE.MeshStandardMaterial({color: 0xff0000})
-);
-anchor.group.add(testCube);
 
-// -------------------- FUNCIONES DE INICIO --------------------
+// 4. Función de inicio: Enciende la cámara y el bucle de renderizado
 const start = async () => {
     guideMessage.classList.remove('hidden');
     await mindarThree.start();
