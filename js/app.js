@@ -43,10 +43,16 @@ const loadModel = (path, anchorGroup) => {
       model.position.sub(center);
       
       // Creamos un contenedor para aplicar transformaciones
-      const wrapper = new THREE.Group();
-      wrapper.scale.set(0.4, 0.4, 0.4);
-      wrapper.position.y = 0.1;
-      wrapper.rotation.y = Math.PI;
+      //Ahora vamos a poner que cuando el mind sea cancercino.glb, el tamaño sea diferente y sino es cancercino se mantiene el tamaño original
+        const wrapper = new THREE.Group();
+        if (path.includes('cancercino')) {
+            wrapper.scale.set(0.13, 0.13, 0.13); // Escala más pequeña para cancercino.glb
+            wrapper.rotation.y = 30; // Rotación de 180 grados en el eje Y
+        } else {
+            wrapper.scale.set(0.3, 0.3, 0.3); // Escala original para otros modelos
+            wrapper.rotation.y = 60; // Sin rotación adicional
+        }
+
       
       wrapper.add(model);
       
