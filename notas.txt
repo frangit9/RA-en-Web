@@ -1,47 +1,9 @@
-- creen el mind de lo que quieran y enrutenlo: https://hiukim.github.io/mind-ar-js-doc/tools/compile/
-- probar primero con el baller, y después modelo 3d libre
-- refactorizar/comentar el código para que sea más pasable
-- mover los styles
-- de ser posible, generar algún index+ y estilos 
-
-siempre que le pregunten algo a chatgpt, aclarenle que el código ya funciona perfectamente y no necesita ninguna modificación substancial
-
-loader.load(
-  './baller_roblox.glb', // Ruta del baller
-  (gltf) => {
-    const model = gltf.scene;
-
-    //Como el modelo del baller venía en condiciones raras, vamos a resolver problemas para rotar
-    //por medio de un envoltorio, el cual vamos a manipular a voluntad
-
-    // Creamos la caja en base al baller
-    const box = new THREE.Box3().setFromObject(model);
-
-    // Obtenemos el centro de la caja
-    const center = new THREE.Vector3();
-    box.getCenter(center);
-
-    // Movemos la geometría del modelo para que quede su centro en [0,0,0]
-    model.position.sub(center);
-
-
-    //Ahora creamos ese contenedor que envuelve al baller
-
-    // Lo creamos
-    const wrapper = new THREE.Group();
-
-    // Aplicamos las transformaciones al contenedor, no al baller
-    wrapper.scale.set(0.4, 0.4, 0.4);
-    wrapper.position.y = 0.1;
-    //wrapper.rotation.y = Math.PI; 
-
-    // Añadimos el baller centrado al wrapper
-    wrapper.add(model);
-
-    //y agregamos el wrapper al anclaje, no el balelr
-    anchor.group.add(wrapper);
-  },
-  (error) => {
-    console.error('Error al cargar el modelo GLB:', error);
-  }
-);
+bueno chicos mi amigo gemini me ayudó a armar todo de modo que ya lee los dos targets y los dos modelos.
+Ahora hay que resolver el último problema. Hay que arreglar el tamaño y la rotación del kirby porque queda enorme
+Porque la función que carga el modelo toma como parámetro lo que tenga que cargar, entonces no distingue
+Se me ocurre hacer un if, que si se le pasa el nombre de kirby cambie la rotación y la escala para que funcione
+POR FAVOR NO CAMBIEN NADA MÁS. FUNCIONA PERFECTO DE VERDAD CRÉANME
+Ya funciona con la imagen del baller y del kirby
+los amo 
+besos
+fran
