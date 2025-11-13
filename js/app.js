@@ -8,7 +8,7 @@ const guideMessage = document.querySelector("#guideMessage");
 // Inicialización de MindAR
 const mindarThree = new MindARThree({
     container: document.querySelector("#container"),
-    imageTargetSrc: "./assets/ancho.mind"
+    imageTargetSrc: "./assets/targets.mind" // Asegúrate de que este archivo .mind contenga DOS marcadores
 });
 
 const { renderer, scene, camera } = mindarThree;
@@ -24,28 +24,56 @@ scene.add(directionalLight);
 const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.0);
 scene.add(hemisphereLight);
 
-// -------------------- ANCLAJE --------------------
-const anchor = mindarThree.addAnchor(0);
-anchor.onTargetFound = () => guideMessage.classList.add('hidden');
-anchor.onTargetLost = () => guideMessage.classList.remove('hidden');
-
-// -------------------- CARGA DEL MODELO --------------------
-const loader = new GLTFLoader();
-loader.load(
-    './baller_roblox.glb', // Ruta de tu modelo 3D
+/**
+ * Función reutilizable para cargar un modelo GLB y añadirlo a un anclaje.
+ * @param {string} path - Ruta al archivo .glb del modelo.
+ * @param {THREE.Group} anchorGroup - El grupo del anclaje donde se añadirá el modelo.
+ */
+const loadModel = (path, anchorGroup) => {
+  const loader = new GLTFLoader();
+  loader.load(
+    path,
     (gltf) => {
-        const model = gltf.scene;
-        // Ajuste de escala (haz el modelo más pequeño para encajar en el marcador)
-        model.scale.set(0.2, 0.2, 0.2); 
-        // Ajuste de posición (lo eleva ligeramente para que no se hunda en el marcador)
-        model.position.y = 0.1; 
-        // Agrega el modelo al anclaje
-        anchor.group.add(model);
+      const model = gltf.scene;
+      
+      // Centramos el modelo para facilitar su manipulación
+      const box = new THREE.Box3().setFromObject(model);
+      const center = new THREE.Vector3();
+      box.getCenter(center);
+      model.position.sub(center);
+      
+      // Creamos un contenedor para aplicar transformaciones
+      const wrapper = new THREE.Group();
+      wrapper.scale.set(0.4, 0.4, 0.4);
+      wrapper.position.y = 0.1;
+      wrapper.rotation.y = Math.PI;
+      
+      wrapper.add(model);
+      
+      // Añadimos el contenedor al grupo del anclaje
+      anchorGroup.add(wrapper);
     },
-    // Función que se ejecuta en caso de error
-    (error) => { console.error('Error al cargar el modelo GLB:', error); }
-);
+    undefined, // onProgress, no lo usamos aquí
+    (error) => {
+      console.error(`Error al cargar el modelo ${path}:`, error);
+    }
+  );
+};
 
+// -------------------- ANCLAJES Y MODELOS --------------------
+
+// Anclaje y modelo para el primer marcador (índice 0)
+const anchor1 = mindarThree.addAnchor(0);
+anchor1.onTargetFound = () => guideMessage.classList.add('hidden');
+anchor1.onTargetLost = () => guideMessage.classList.remove('hidden');
+loadModel('./assets/baller_roblox.glb', anchor1.group);
+
+// Anclaje y modelo para el segundo marcador (índice 1)
+const anchor2 = mindarThree.addAnchor(1);
+anchor2.onTargetFound = () => guideMessage.classList.add('hidden');
+anchor2.onTargetLost = () => guideMessage.classList.remove('hidden');
+// Reemplaza './assets/another_model.glb' con la ruta a tu segundo modelo
+loadModel('./assets/cancercino.glb', anchor2.group);
 
 // 4. Función de inicio: Enciende la cámara y el bucle de renderizado
 const start = async () => {
