@@ -78,8 +78,9 @@ loadModel('./assets/baller_roblox.glb', anchor1.group);
 const anchor2 = mindarThree.addAnchor(1);
 anchor2.onTargetFound = () => guideMessage.classList.add('hidden');
 anchor2.onTargetLost = () => guideMessage.classList.remove('hidden');
-// Reemplaza './assets/another_model.glb' con la ruta a tu segundo modelo
+// Reemplaza './assets/another_model.glb' con la ruta al segundo modelo
 loadModel('./assets/kirby.glb', anchor2.group);
+//yo cuando el nombre del modelo estaba con k mayúscula entonces sólo cargaba en mi compu
 
 // 4. Función de inicio: Enciende la cámara y el bucle de renderizado
 const start = async () => {
