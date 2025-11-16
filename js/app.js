@@ -43,14 +43,14 @@ const loadModel = (path, anchorGroup) => {
       model.position.sub(center);
       
       // Creamos un contenedor para aplicar transformaciones
-      //Ahora vamos a poner que cuando el mind sea cancercino.glb, el tamaño sea diferente y sino es cancercino se mantiene el tamaño original
+      //Ahora vamos a poner que cuando el mind sea kirby.glb, el tamaño sea diferente y sino es kirby se mantiene el tamaño original
         const wrapper = new THREE.Group();
-        if (path.includes('cancercino')) {
-            wrapper.scale.set(0.13, 0.13, 0.13); // Escala más pequeña para cancercino.glb
-            wrapper.rotation.y = 30; // Rotación de 180 grados en el eje Y
+        if (path.includes('kirby')) {
+            wrapper.scale.set(2.5, 2.5, 2.5); // Escala más pequeña para kirby.glb
+            wrapper.rotation.y = 0; // Rotación de 0 grados en el eje Y
         } else {
             wrapper.scale.set(0.3, 0.3, 0.3); // Escala original para otros modelos
-            wrapper.rotation.y = 60; // Sin rotación adicional
+            wrapper.rotation.y = Math.PI/2; // Sin rotación adicional
         }
 
       
@@ -79,7 +79,7 @@ const anchor2 = mindarThree.addAnchor(1);
 anchor2.onTargetFound = () => guideMessage.classList.add('hidden');
 anchor2.onTargetLost = () => guideMessage.classList.remove('hidden');
 // Reemplaza './assets/another_model.glb' con la ruta a tu segundo modelo
-loadModel('./assets/cancercino.glb', anchor2.group);
+loadModel('./assets/kirby.glb', anchor2.group);
 
 // 4. Función de inicio: Enciende la cámara y el bucle de renderizado
 const start = async () => {

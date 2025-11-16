@@ -11,5 +11,4 @@ resolvido
 besos
 roberth y lucho
 
-se va a quedar en esta rama la versión buena, mientras que en el main (el que va a ser elevado a sites), va a ver un kirby normal
-Gracias por tanto perdón por tan poco chad###o
+versión políticamente correcta
