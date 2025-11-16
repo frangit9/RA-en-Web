@@ -45,7 +45,7 @@ const loadModel = (path, anchorGroup) => {
       // Creamos un contenedor para aplicar transformaciones
       //Ahora vamos a poner que cuando el mind sea kirby.glb, el tamaño sea diferente y sino es kirby se mantiene el tamaño original
         const wrapper = new THREE.Group();
-        if (path.includes('kirby')) {
+        if (path.includes('Kirby')) {
             wrapper.scale.set(2.5, 2.5, 2.5); // Escala más pequeña para kirby.glb
             wrapper.rotation.y = 0; // Rotación de 0 grados en el eje Y
         } else {
@@ -79,8 +79,9 @@ const anchor2 = mindarThree.addAnchor(1);
 anchor2.onTargetFound = () => guideMessage.classList.add('hidden');
 anchor2.onTargetLost = () => guideMessage.classList.remove('hidden');
 // Reemplaza './assets/another_model.glb' con la ruta al segundo modelo
-loadModel('./assets/kirby.glb', anchor2.group);
+loadModel('./assets/Kirby.glb', anchor2.group);
 //yo cuando el nombre del modelo estaba con k mayúscula entonces sólo cargaba en mi compu
+//y para colmo git no reconoce que le cambié el nombre de Kirby a kirby entonces tengo que cambiar el enrutamiento
 
 // 4. Función de inicio: Enciende la cámara y el bucle de renderizado
 const start = async () => {
